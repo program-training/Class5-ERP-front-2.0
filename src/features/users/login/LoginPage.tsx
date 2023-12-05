@@ -9,7 +9,7 @@ import { TopPage } from "./components/TopPage";
 import { useAppDispatch } from "../../../redux/hooks";
 import { setUser } from "../userSlice";
 import { To, useNavigate } from "react-router-dom";
-import loginReq from "./service/loginReq";
+import useLogin from "./service/useLogin";
 import { setAlert } from "../../inventory/alert/utils/alertSlices";
 import Alert from "../../inventory/alert/component/Alert";
 import ROUTES from "../../../routes/RoutesModel";
@@ -21,6 +21,7 @@ const LogIn = () => {
     handleSubmit,
     formState: { errors, isValid },
   } = useForm<inputs>({ mode: "onChange", criteriaMode: "all" });
+  const loginReq = useLogin()
   const navigate = useNavigate();
   const navigateTo = (to: To) => navigate(to);
 

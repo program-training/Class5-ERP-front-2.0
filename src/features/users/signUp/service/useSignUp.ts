@@ -6,14 +6,19 @@ const useSignUp = () => {
   const [addUser] = useMutation(MUTATION_ADD_USER);
   
   const signUpReq = async (user: UserInterface) => {
-  
+    console.log('signing');
+    
     try {
       const userData = await addUser({ 
          variables: {
-           email: user.email,
-           password: user.password
+          input: {
+            email: user.email,
+            password: user.password
+          }
          }
       });
+      console.log('res', userData);
+      
       return userData;
     } catch (error) {
       return Promise.reject(error);

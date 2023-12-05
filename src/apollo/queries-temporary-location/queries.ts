@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-export const QUERY_ADD_USER = gql`
+export const MUTATION_ADD_USER = gql`
 mutation AddUser($email: String!, $password: String!) {
   addUser(email: $email, password: $password) {
     _id
@@ -12,8 +12,12 @@ mutation AddUser($email: String!, $password: String!) {
 export const QUERY_GET_USER = gql`
 query GetUser($getUserId: ID!) {
   getUser(id: $getUserId) {
-    _id
+    # token - uncomment after the server include token in the schema
     email
   }
 }
 `
+
+// export const QUERY_GET_INVENTORY = gql`
+// query 
+// `

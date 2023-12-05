@@ -1,6 +1,6 @@
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 
-const BASE_URI = import.meta.env.VITE_BASE_URI || "http://127.0.0.1:4000";
+const BASE_URI = import.meta.env.VITE_BASE_URI || "http://192.168.66.99:4000";
 
 const client = new ApolloClient({
   uri: BASE_URI,

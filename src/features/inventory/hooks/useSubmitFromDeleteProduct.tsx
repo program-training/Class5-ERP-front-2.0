@@ -1,12 +1,20 @@
+import { useMutation } from "@apollo/client";
 import { useAppDispatch } from "../../../redux/hooks";
 import { setAlert } from "../alert/utils/alertSlices";
-import deleteProduct from "../services/deleteProduct";
 import useActionOnRedux from "./useActionOnRedux";
+import MUTATION_DELETE_PRODUCT from "../../../apollo/queries-temporary-location/delete-product-mutation";
 const useSubmitFromDeleteProduct = () => {
   const dispatch = useAppDispatch();
   const actionOnRedux = useActionOnRedux();
+  const [deleteProduct] = useMutation(MUTATION_DELETE_PRODUCT)
   return (id: string | number, handleClose: () => void) => {
-    deleteProduct(id)
+    deleteProduct({
+      variables: {
+        input: {
+          id
+        }
+      }
+    })
       .then(() => {
         actionOnRedux("delete");
         handleClose();

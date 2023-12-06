@@ -1,12 +1,15 @@
 import { Box } from "@mui/material";
 import { adminProductInterface } from "../../interfaces/adminProductInterface";
 import Item from "./Item";
+import GraphChanges from "../components/GraphChnges";
 
 interface Props {
   product: adminProductInterface;
 }
 
 const Details = ({ product }: Props) => {
+  const dates = [1, 2, 3, 5];
+  const quantity = [2, 5.5, 2, 8.5];
   return (
     <Box
       sx={{
@@ -35,6 +38,7 @@ const Details = ({ product }: Props) => {
       />
       <Item item="created by:" value={`${product.createdBy}`} divider="none" />
       <Item item="supplier:" value={`${product.supplier}`} divider="bottom" />
+      <GraphChanges dates={dates} quantity={quantity} />
     </Box>
   );
 };

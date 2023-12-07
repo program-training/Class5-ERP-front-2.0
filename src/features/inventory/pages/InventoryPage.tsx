@@ -20,22 +20,20 @@ import { useQuery } from "@apollo/client";
 import { QUERY_ALL_PRODUCT } from "../../../apollo/queries-temporary-location/all-products-query";
 
 const InventoryPage = () => {
-
   const dispatch = useAppDispatch();
 
   const { open } = useAppSelector((store) => store.alert);
   const user = useAppSelector((store) => store.user.user);
-  const { data: productsData, loading, error } = useQuery(QUERY_ALL_PRODUCT)
+  const { data: productsData, loading, error } = useQuery(QUERY_ALL_PRODUCT);
 
-  console.log('data:', productsData, "loading:", loading, 'error:', error);
-  
+  console.log("data:", productsData, "loading:", loading, "error:", error);
+
   useEffect(() => {
     if (!user || !productsData) return;
 
     dispatch(setAllProducts(productsData.getProducts));
     dispatch(setFilteredProducts(productsData.getProducts));
-      
-  }, [user, productsData]);
+  }, [user, productsData, dispatch]);
   if (!user) return <Navigate replace to={ROUTES.login_page} />;
 
   return (
@@ -47,16 +45,10 @@ const InventoryPage = () => {
         <TableTitle title="Products" />
         <ProductTable Data="filteredProducts" />
         {loading && (
-          <MessagePendingOrError
-            message={'load'}
-            title={'load products'}
-          />
+          <MessagePendingOrError message={"load"} title={"load products"} />
         )}
         {!productsData && error && (
-          <MessagePendingOrError
-            message={error.message}
-            title={'error'}
-          />
+          <MessagePendingOrError message={error.message} title={"error"} />
         )}
         {open && <Alert />}
       </Box>

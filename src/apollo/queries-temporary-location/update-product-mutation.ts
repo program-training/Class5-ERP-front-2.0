@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 const MUTATION_UPDATE_PRODUCT = gql`
-mutation UpdateProduct($id: ID!, $input: UpdateProductInput!) {
-  updateProduct(id: $id, input: $input) {
+mutation UpdateProduct($input: updateProductInput) {
+  updateProduct(input: $input) {
     id
     category
     costPrice

@@ -4,7 +4,7 @@ interface Props {
   dates: number[];
   quantity: number[];
 }
-const GraphChanges = ({ dates, quantity }: Props) => {
+const StatistsGraph = ({ dates, quantity }: Props) => {
   return (
     <LineChart
       xAxis={[{ data: dates }]} // תאריך
@@ -19,4 +19,4 @@ const GraphChanges = ({ dates, quantity }: Props) => {
     />
   );
 };
-export default GraphChanges;
+export default StatistsGraph;

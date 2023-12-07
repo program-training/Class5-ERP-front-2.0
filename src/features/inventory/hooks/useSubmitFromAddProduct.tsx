@@ -1,16 +1,29 @@
+import { useMutation } from "@apollo/client";
 import { useAppDispatch } from "../../../redux/hooks";
 import { setAlert } from "../alert/utils/alertSlices";
 import { adminProductInterface } from "../interfaces/adminProductInterface";
 import useActionOnRedux from "./useActionOnRedux";
-import addProduct from "../services/addProduct";
+import { MUTATION_ADD_PRODUCT } from "../../../apollo/queries-temporary-location/add-product-mutation";
+import normalizeData from "../form/normalize-data";
 
 const useSubmitFromAddProduct = () => {
   const dispatch = useAppDispatch();
   const actionOnRedux = useActionOnRedux();
+  const [addProduct] = useMutation(MUTATION_ADD_PRODUCT)
   return (newProduct: adminProductInterface) => {
-    addProduct(newProduct)
+    console.log('adding;', newProduct);
+    
+    addProduct({
+      variables: {
+        input: {
+          ...normalizeData(newProduct)
+        }
+      }
+    })
       .then((res) => {
-        actionOnRedux("add", res);
+        console.log('rres ass', res);
+        
+        actionOnRedux("add", newProduct);//update this
         dispatch(
           setAlert({
             open: true,
@@ -21,6 +34,8 @@ const useSubmitFromAddProduct = () => {
         );
       })
       .catch((error) => {
+        console.error(error);
+        
         dispatch(
           setAlert({
             open: true,

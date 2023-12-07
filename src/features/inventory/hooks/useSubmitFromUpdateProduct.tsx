@@ -4,22 +4,25 @@ import { setAlert } from "../alert/utils/alertSlices";
 import { adminProductInterface } from "../interfaces/adminProductInterface";
 import useActionOnRedux from "./useActionOnRedux";
 import MUTATION_UPDATE_PRODUCT from "../../../apollo/queries-temporary-location/update-product-mutation";
+import normalizeData from "../form/normalize-data";
+
 const useSubmitFromUpdateProduct = () => {
   const dispatch = useAppDispatch();
   const actionOnRedux = useActionOnRedux();
   const [ updateProduct ] = useMutation(MUTATION_UPDATE_PRODUCT)
   return (newProduct: adminProductInterface, id: string | number) => {
+    console.log('new product:', newProduct);
+    
     updateProduct({
       variables: {
         input: {
-          ...newProduct
+          product: {...normalizeData(newProduct)},
+          id
         },
-        id
       }
     })
-    // important !! take here the updated product and put it in redux
       .then(() => {
-        actionOnRedux("update", );
+        actionOnRedux("update", newProduct);
         dispatch(
           setAlert({
             open: true,

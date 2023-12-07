@@ -22,7 +22,7 @@ const MessagePendingOrError = ({ message, title }: Props) => {
       {message === "load" ? (
         <CircularProgress />
       ) : (
-        <Typography overflow={"scroll"}>{message}</Typography>
+        <Typography overflow={"auto"}>{message}</Typography>
       )}
     </Box>
   );

@@ -1,8 +1,10 @@
 import { gql } from "@apollo/client";
 
 const MUTATION_DELETE_PRODUCT = gql`
-mutation DeletePost($id: ID!) {
-    deletePost(id: $id) 
+mutation DeleteProduct($input: deleteProductInput) {
+  deleteProduct(input: $input) {
+    id
+  }
 }
 `
 

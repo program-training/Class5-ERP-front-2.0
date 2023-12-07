@@ -4,6 +4,7 @@ import { setAlert } from "../alert/utils/alertSlices";
 import { adminProductInterface } from "../interfaces/adminProductInterface";
 import useActionOnRedux from "./useActionOnRedux";
 import MUTATION_UPDATE_PRODUCT from "../../../apollo/queries-temporary-location/update-product-mutation";
+import normalizeData from "../form/normalize-data";
 
 const useSubmitFromUpdateProduct = () => {
   const dispatch = useAppDispatch();
@@ -15,14 +16,7 @@ const useSubmitFromUpdateProduct = () => {
     updateProduct({
       variables: {
         input: {
-          product: {
-            ...newProduct,
-            salePrice: +newProduct.salePrice,
-            quantity: +newProduct.quantity,
-            discountPercentage: +newProduct.discountPercentage,
-            isForSale: `${newProduct.isForSale}` === 'true',
-            costPrice: +newProduct.costPrice
-          },
+          product: {...normalizeData(newProduct)},
           id
         },
       }

@@ -15,13 +15,8 @@ const useLogin = () => {
           }
         }
       });
-
-      console.log(response);
       
-      const TOKEN = response.data.loginUser.resData.token;
-
-      console.log('token:', TOKEN);
-      
+      const TOKEN = response.data.loginUser.resData.token;      
   
       localStorage.setItem("ERP_TOKEN", TOKEN);
       localStorage.setItem("erpUsername", user.email);

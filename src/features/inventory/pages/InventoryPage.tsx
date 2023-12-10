@@ -26,8 +26,6 @@ const InventoryPage = () => {
   const user = useAppSelector((store) => store.user.user);
   const { data: productsData, loading, error } = useQuery(QUERY_ALL_PRODUCT);
 
-  console.log("data:", productsData, "loading:", loading, "error:", error);
-
   useEffect(() => {
     if (!user || !productsData) return;
 

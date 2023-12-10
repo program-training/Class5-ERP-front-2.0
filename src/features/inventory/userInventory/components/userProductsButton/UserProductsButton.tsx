@@ -21,7 +21,6 @@ const UserProductsButton = () => {
   }, [data]);
 
   const handelClick = () => {
-    console.log('user products', userProducts);
     refetch()
     .then(() => dispatch(setUserProducts(data.getMyProducts)))
     

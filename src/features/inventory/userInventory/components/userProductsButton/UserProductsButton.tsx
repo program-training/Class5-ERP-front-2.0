@@ -4,29 +4,34 @@ import {
   setOpenUserProducts,
   setUserProducts,
 } from "../../../productsDisplay/utils/inventorySlice";
-import getUserProductsFromServer from "../../../services/UserProducts";
 import { useEffect } from "react";
 import { setAlert } from "../../../alert/utils/alertSlices";
+import { useQuery } from "@apollo/client";
+import { QUERY_MY_PRODUCTS } from "../../../../../apollo/queries-temporary-location/user-products-query";
 
 const UserProductsButton = () => {
   const dispatch = useAppDispatch();
-  const { userProducts, allProducts } = useAppSelector(
+  const { userProducts } = useAppSelector(
     (state) => state.inventory.inventoryProducts
   );
+  const { data, refetch } = useQuery(QUERY_MY_PRODUCTS)
 
   useEffect(() => {
-    getUserProductsFromServer().then((res) => dispatch(setUserProducts(res)));
-  }, [allProducts]);
+    if (data) dispatch(setUserProducts(data.getMyProducts));
+  }, [data]);
 
   const handelClick = () => {
-    if (typeof userProducts !== "string") {
-      dispatch(setOpenUserProducts(true));
-    } else {
+    console.log('user products', userProducts);
+    refetch()
+    .then(() => dispatch(setUserProducts(data.getMyProducts)))
+    
+    if (userProducts.length > 0) dispatch(setOpenUserProducts(true));
+    if (userProducts.length === 0) {
       dispatch(
         setAlert({
           open: true,
           title: "error",
-          message: userProducts,
+          message: "אין לך פה מוצרים יא אהבל",
           allowAccessProductPage: false,
         })
       );

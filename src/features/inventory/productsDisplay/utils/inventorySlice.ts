@@ -28,9 +28,7 @@ export const inventorySlice = createSlice({
   name: "inventory",
   initialState,
   reducers: {
-    setAllProducts: (state, action: PayloadAction<adminProductInterface[]>) => {
-      console.log("all products in dux", action.payload);
-      
+    setAllProducts: (state, action: PayloadAction<adminProductInterface[]>) => {      
       state.inventoryProducts.allProducts = action.payload;
       return state;
     },

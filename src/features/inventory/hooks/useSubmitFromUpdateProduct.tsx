@@ -11,7 +11,6 @@ const useSubmitFromUpdateProduct = () => {
   const actionOnRedux = useActionOnRedux();
   const [ updateProduct ] = useMutation(MUTATION_UPDATE_PRODUCT)
   return (newProduct: adminProductInterface, id: string | number) => {
-    console.log('new product:', newProduct);
     
     updateProduct({
       variables: {

@@ -11,7 +11,6 @@ const useSubmitFromAddProduct = () => {
   const actionOnRedux = useActionOnRedux();
   const [addProduct] = useMutation(MUTATION_ADD_PRODUCT)
   return (newProduct: adminProductInterface) => {
-    console.log('adding;', newProduct);
     
     addProduct({
       variables: {
@@ -20,9 +19,7 @@ const useSubmitFromAddProduct = () => {
         }
       }
     })
-      .then((res) => {
-        console.log('rres ass', res);
-        
+      .then((res) => {        
         actionOnRedux("add", newProduct);//update this
         dispatch(
           setAlert({

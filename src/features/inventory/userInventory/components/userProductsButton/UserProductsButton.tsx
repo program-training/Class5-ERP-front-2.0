@@ -14,15 +14,19 @@ const UserProductsButton = () => {
   const { userProducts } = useAppSelector(
     (state) => state.inventory.inventoryProducts
   );
-  const { data, error } = useQuery(QUERY_MY_PRODUCTS)
+  const { data, refetch } = useQuery(QUERY_MY_PRODUCTS)
 
-  useEffect(() => {    
+  useEffect(() => {
     if (data) dispatch(setUserProducts(data.getMyProducts));
   }, [data]);
 
   const handelClick = () => {
+    console.log('user products', userProducts);
+    refetch()
+    .then(() => dispatch(setUserProducts(data.getMyProducts)))
+    
     if (userProducts.length > 0) dispatch(setOpenUserProducts(true));
-    if (error || data.getMyProducts.length === 0) {
+    if (userProducts.length === 0) {
       dispatch(
         setAlert({
           open: true,

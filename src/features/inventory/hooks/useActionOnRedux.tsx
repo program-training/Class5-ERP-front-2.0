@@ -4,11 +4,12 @@ import {
   setAllProducts,
   setChosenProduct,
   setFilteredProducts,
+  setUserProducts,
 } from "../productsDisplay/utils/inventorySlice";
 
 const useActionOnRedux = () => {
   const dispatch = useAppDispatch();
-  const { allProducts, chosenProduct } = useAppSelector(
+  const { allProducts, chosenProduct, userProducts } = useAppSelector(
     (store) => store.inventory.inventoryProducts
   );
 
@@ -18,15 +19,25 @@ const useActionOnRedux = () => {
   ) => {
     const builder = [...allProducts];
     action === "add" && newProduct && builder.push(newProduct);
+    // add the new product to the user's products list in redux
+    console.log('so far so good');
+    
+    if (action === 'add' && newProduct) {
+
+      console.log('also so far so good');
+      dispatch(setUserProducts([...userProducts, newProduct]))
+    }
     action === "delete" &&
       builder.splice(
         builder.findIndex((product) => product.id === chosenProduct?.id),
         1
       );
     if (action === "update" && newProduct) {
+      console.log('old builder', builder);
       builder[
         builder.findIndex((product) => product.id === chosenProduct?.id)
       ] = newProduct;
+      console.log('updated builder', builder);
     }
 
     newProduct && dispatch(setChosenProduct(newProduct));

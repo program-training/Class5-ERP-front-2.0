@@ -1,5 +1,5 @@
 export interface adminProductInterface {
-  id: number;
+  id: string;
   name: string;
   salePrice: string;
   quantity: number;
